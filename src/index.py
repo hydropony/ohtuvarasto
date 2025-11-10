@@ -1,8 +1,5 @@
 from varasto import Varasto
 
-def faulty_function():
-  return 42
-
 def main():
     mehua = Varasto(100.0)
     olutta = Varasto(100.0, 20.2)
