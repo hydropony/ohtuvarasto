@@ -39,4 +39,4 @@ class Warehouse:
         return amount
 
     def __str__(self):
-        return f"balance = {self.balance}, space {self.available_space()}"
+        return f"balance = {self.balance}, space = {self.available_space()}"

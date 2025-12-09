@@ -1,4 +1,4 @@
-from varasto import Warehouse
+from warehouse import Warehouse
 
 def main():
     juice = Warehouse(100.0)
