@@ -1,9 +1,10 @@
 """Flask web application for warehouse management."""
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from varasto import Warehouse
 
 app = Flask(__name__)
-app.secret_key = 'dev_secret_key_change_in_production'
+app.secret_key = os.environ.get('SECRET_KEY', 'dev_secret_key_change_in_production')
 
 # In-memory storage for warehouses (dictionary with ID as key)
 warehouses = {}
