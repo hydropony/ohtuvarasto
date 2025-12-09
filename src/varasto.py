@@ -1,42 +1,42 @@
-class Varasto:
-    def __init__(self, tilavuus, alku_saldo = 0):
-        self.tilavuus = tilavuus if tilavuus > 0.0 else 0.0
+class Warehouse:
+    def __init__(self, capacity, initial_balance=0):
+        self.capacity = capacity if capacity > 0.0 else 0.0
 
-        if alku_saldo < 0.0:
-            # virheellinen, nollataan
-            self.saldo = 0.0
-        elif alku_saldo <= tilavuus:
-            # mahtuu
-            self.saldo = alku_saldo
+        if initial_balance < 0.0:
+            # invalid, reset to zero
+            self.balance = 0.0
+        elif initial_balance <= capacity:
+            # fits
+            self.balance = initial_balance
         else:
-            # täyteen ja ylimäärä hukkaan!
-            self.saldo = tilavuus
+            # fill to capacity, excess is lost!
+            self.balance = capacity
 
-    # huom: ominaisuus voidaan myös laskea.
-    # Ei tarvita erillistä kenttää viela_tilaa tms.
-    def paljonko_mahtuu(self):
-        return self.tilavuus - self.saldo
+    # note: property can also be calculated.
+    # No separate field needed for available_space etc.
+    def available_space(self):
+        return self.capacity - self.balance
 
-    def lisaa_varastoon(self, maara):
-        if maara < 0:
+    def add_to_warehouse(self, amount):
+        if amount < 0:
             return
-        if maara <= self.paljonko_mahtuu():
-            self.saldo = self.saldo + maara
+        if amount <= self.available_space():
+            self.balance = self.balance + amount
         else:
-            self.saldo = self.tilavuus
+            self.balance = self.capacity
 
-    def ota_varastosta(self, maara):
-        if maara < 0:
+    def take_from_warehouse(self, amount):
+        if amount < 0:
             return 0.0
-        if maara > self.saldo:
-            kaikki_mita_voidaan = self.saldo
-            self.saldo = 0.0
+        if amount > self.balance:
+            all_that_can_be_taken = self.balance
+            self.balance = 0.0
 
-            return kaikki_mita_voidaan
+            return all_that_can_be_taken
 
-        self.saldo = self.saldo - maara
+        self.balance = self.balance - amount
 
-        return maara
+        return amount
 
     def __str__(self):
-        return f"saldo = {self.saldo}, vielä tilaa {self.paljonko_mahtuu()}"
+        return f"balance = {self.balance}, space {self.available_space()}"

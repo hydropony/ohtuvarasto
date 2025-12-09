@@ -1,12 +1,12 @@
-from varasto import Varasto
+from varasto import Warehouse
 
 def main():
-    mehua = Varasto(100.0)
-    olutta = Varasto(100.0, 20.2)
+    juice = Warehouse(100.0)
+    beer = Warehouse(100.0, 20.2)
 
-    print("Luonnin jälkeen:")
-    print(f"Mehuvarasto: {mehua}")
-    print(f"Olutvarasto: {olutta}")
+    print("After creation:")
+    print(f"Juice warehouse: {juice}")
+    print(f"Beer warehouse: {beer}")
 
 
 if __name__ == "__main__":
