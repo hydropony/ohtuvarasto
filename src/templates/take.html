@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Take Items - Warehouse Management{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Take Items from Warehouse: {{ warehouse_data.name }}</h2>
+    
+    <div class="form-group">
+        <label>Current Status</label>
+        <p><strong>Capacity:</strong> {{ "%.2f"|format(warehouse_data.warehouse.capacity) }}</p>
+        <p><strong>Current Balance:</strong> {{ "%.2f"|format(warehouse_data.warehouse.balance) }}</p>
+        <p><strong>Available Space:</strong> {{ "%.2f"|format(warehouse_data.warehouse.available_space()) }}</p>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ (warehouse_data.warehouse.balance / warehouse_data.warehouse.capacity * 100) if warehouse_data.warehouse.capacity > 0 else 0 }}%"></div>
+        </div>
+        <small>{{ "%.1f"|format((warehouse_data.warehouse.balance / warehouse_data.warehouse.capacity * 100) if warehouse_data.warehouse.capacity > 0 else 0) }}% full</small>
+    </div>
+    
+    <form method="POST" action="{{ url_for('take_items', warehouse_id=warehouse_data.id) }}">
+        <div class="form-group">
+            <label for="amount">Amount to Take *</label>
+            <input type="number" id="amount" name="amount" step="0.01" min="0.01" required placeholder="Enter amount to take">
+            <small style="color: #6c757d;">If the amount exceeds the current balance, all available items will be taken</small>
+        </div>
+        
+        <div class="actions">
+            <button type="submit" class="btn btn-secondary">Take Items</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

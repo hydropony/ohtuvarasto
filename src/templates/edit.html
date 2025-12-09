@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Warehouse - Warehouse Management{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Edit Warehouse</h2>
+    
+    <form method="POST" action="{{ url_for('edit', warehouse_id=warehouse_data.id) }}">
+        <div class="form-group">
+            <label for="name">Warehouse Name *</label>
+            <input type="text" id="name" name="name" value="{{ warehouse_data.name }}" required placeholder="Enter warehouse name">
+        </div>
+        
+        <div class="form-group">
+            <label>Current Status</label>
+            <p><strong>Capacity:</strong> {{ "%.2f"|format(warehouse_data.warehouse.capacity) }}</p>
+            <p><strong>Balance:</strong> {{ "%.2f"|format(warehouse_data.warehouse.balance) }}</p>
+            <p><strong>Available Space:</strong> {{ "%.2f"|format(warehouse_data.warehouse.available_space()) }}</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ (warehouse_data.warehouse.balance / warehouse_data.warehouse.capacity * 100) if warehouse_data.warehouse.capacity > 0 else 0 }}%"></div>
+            </div>
+            <small>{{ "%.1f"|format((warehouse_data.warehouse.balance / warehouse_data.warehouse.capacity * 100) if warehouse_data.warehouse.capacity > 0 else 0) }}% full</small>
+        </div>
+        
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">Update Warehouse</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
