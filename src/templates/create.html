@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Create Warehouse - Warehouse Management{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Create New Warehouse</h2>
+    
+    <form method="POST" action="{{ url_for('create') }}">
+        <div class="form-group">
+            <label for="name">Warehouse Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Enter warehouse name">
+        </div>
+        
+        <div class="form-group">
+            <label for="capacity">Capacity *</label>
+            <input type="number" id="capacity" name="capacity" step="0.01" min="0.01" required placeholder="Enter capacity">
+            <small style="color: #6c757d;">Maximum amount the warehouse can hold</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="initial_balance">Initial Balance</label>
+            <input type="number" id="initial_balance" name="initial_balance" step="0.01" min="0" value="0" placeholder="Enter initial balance">
+            <small style="color: #6c757d;">Current amount in the warehouse (default: 0)</small>
+        </div>
+        
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">Create Warehouse</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
